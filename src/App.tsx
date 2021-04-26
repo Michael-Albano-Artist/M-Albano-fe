@@ -1,25 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+import AuthProvider from './components/auth/AuthProvider';
+import PrivateRoute from './components/auth/PrivateRoute';
+import ImageList from './components/images/ImageList';
+import Upload from './components/admin/upload'
+import LogInPage from './components/auth/LogInPage';
+import SignupPage from './components/auth/SignupPage';
 import './App.css';
+import AddEvent from './components/admin/AddEvent';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route
+            exact path='/'
+            component={ImageList}
+          />
+          <Route
+            exact path='/login'
+            component={LogInPage}
+          />
+          <Route  
+            exact path='/signup'
+            component={SignupPage}
+          />
+          <PrivateRoute
+            exact path='/admin'
+            component={Upload}
+          />
+          <PrivateRoute
+            exact path='/event'
+            component={AddEvent}
+          />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 
