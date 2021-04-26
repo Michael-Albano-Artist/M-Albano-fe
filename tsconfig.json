@@ -18,7 +18,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "noImplicitAny": false,
+    "plugins": [
+      {
+         "name": "typescript-plugin-css-modules",
+         "options": {
+          "classnameTransform": "dashes",
+          "customMatcher": "\\.m\\.css$",
+          },
+        }
+      ],
   },
   "include": [
     "src"

@@ -1,0 +1,33 @@
+.upload-box {
+  background: black;
+  min-height: 100vh;
+  padding: 5rem;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.upload-form * {
+  font-family: 'Roboto Mono';
+  margin: .5rem;
+}
+
+.upload-form > label {
+  color: white;
+  margin-top: 20px;
+}
+
+.upload-form > input, select {
+  width: 40vw;
+  border-radius: 6px;
+  color: black;
+}
+
+.upload-form > button {
+  width: 100px;
+  color: red;
+  border-radius: 6px;
+}
