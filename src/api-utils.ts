@@ -36,6 +36,19 @@ export const uploadEvent = async(imageString: string | ArrayBuffer | null, metaD
 
 }
 
+export const deleteImage = async(publicId: string) => {
+  try {
+    await fetch(api, {
+      method: 'DELETE',
+      body: JSON.stringify({publicId: publicId}),
+      headers: {'Content-type': 'application/json'}
+    });
+
+  } catch (error) {
+      console.log(error);
+  }
+}
+
 export const fetchImages = async() => {
   try {
     const res = await fetch(api);
@@ -46,12 +59,4 @@ export const fetchImages = async() => {
   }
 }
 
-export const fetchEvents = async() => {
-  try {
-    const res = await fetch(`${api}/events`);
-    return await res.json();
 
-  } catch (error) {
-      console.error(error);
-  }
-}

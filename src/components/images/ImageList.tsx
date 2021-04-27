@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchEvents, fetchImages } from '../../api-utils';
+import { fetchImages } from '../../api-utils';
 // import { Image } from 'cloudinary-react';
 import { GalleryItem } from '../../types';
 import './ImageList.css';
@@ -12,16 +12,20 @@ type Props = {
 
 const ImageList: React.FC<Props> = ({ forEvents }) => {
   const [images, setImages] = useState<GalleryItem[]>([]);
-  const [events, setEvents] = useState<GalleryItem[]>([]);
+  // const [events, setEvents] = useState<GalleryItem[]>([]);
   
   useEffect(() => {
     fetchImages()
       .then(images => setImages(images));
-    fetchEvents()
-      .then(res => setEvents(res));
+    // fetchEvents()
+    //   .then(res => setEvents(res));
   }, []);
+
+  const filteredEvents = images.filter(image => 
+    image.publicId.match(/event/g)
+  )
   
-  const eventItems = (events) ? events.map(
+  const eventItems = (filteredEvents) ? filteredEvents.map(
     (image, index) => (
       <li key={index}>
       <ImageItem image={image} index={index} />
@@ -46,7 +50,7 @@ const filteredImages = images.filter(
   
     <div className='list-box'>
 
-      {events && 
+      {filteredEvents && 
       
       <ul>
         {eventItems}

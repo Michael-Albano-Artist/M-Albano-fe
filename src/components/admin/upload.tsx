@@ -13,13 +13,14 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
   const [dimensions, setDimensions] = useState<string>('');
   const [forSale, setForSale] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  const [date, setDate] = useState();
+  const [day, setDay] = useState<string>('');
   const metadata = 
     `title=${title}
     |medium=${medium}
     |dimensions=${dimensions}
     |forSale=${forSale}
-    |price=${price}`;
+    |price=${price}
+    |eventDay=${day}`;
 
   const previewFile = (file: Blob) => {
     const reader = new FileReader();
@@ -41,7 +42,7 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
     if(target.name === 'dimensions') setDimensions(target.value);
     if(target.name === 'forSale') setForSale(target.value);
     if(target.name === 'price') setPrice(target.value);
-    if(target.name === 'date') setDate(target.value);
+    if(target.name === 'date') setDay(target.value);
 
   }
 
@@ -91,8 +92,9 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
 
         <label htmlFor='dimensions'>
           {
-          (!forEvent) ? 'dimensions' 
-          : 'venue'
+          (!forEvent) 
+            ? 'dimensions' 
+            : 'venue'
           }
         </label>
         <input
@@ -111,8 +113,9 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
             type='date'
             name='date'
             id='date'
-            value={date}
-            onChange={handleChange}></input>
+            value={day}
+            onChange={handleChange}
+          />
         </>
 
         }
@@ -126,7 +129,7 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
             id='forSale'
             onChange={handleChange}
           >
-              <option value=''></option>
+
               <option value='yes'>yes</option>
               <option value='no'>sold</option>
               <option value='not'>not for sale</option>
@@ -153,7 +156,7 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
         <img src={previewSource} alt="file chosen"/>
 
       )}
-      
+
     </div>
   )
 }

@@ -4,6 +4,7 @@ export interface Metadata {
   medium: string;
   dimensions: string;
   forSale: string;
+  eventDay: string;
 }
 
 export interface GalleryItem {
