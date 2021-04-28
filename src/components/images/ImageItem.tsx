@@ -4,6 +4,8 @@ import { Image } from 'cloudinary-react';
 import './ImageItem.css';
 import { deleteImage } from '../../api-utils';
 import { arrangeDate } from '../../utils';
+import { Link } from 'react-router-dom';
+
 
 type Props = {
   image: GalleryItem;
@@ -34,21 +36,22 @@ const ImageItem: React.FC<Props> = ({ image, index }) => {
           <h5>{metadata.medium}</h5>
           <h5>{metadata.dimensions}</h5>
             {(metadata.forSale === 'yes') &&
-            <h5>{`$${metadata.price}`}</h5>
+              <h5>{`$${metadata.price}`}</h5>
             }
             {(metadata.forSale === 'no') &&
-            <h5>sold</h5>
+              <h5>sold</h5>
             }
             {(metadata.forSale === 'not') &&
-            <h5>not for sale</h5>
+              <h5>not for sale</h5>
             }
             {metadata.eventDay &&
-            <h5>{arrangeDate(metadata.eventDay)}</h5>
+              <h5>{arrangeDate(metadata.eventDay)}</h5>
             }
           </>
           }
 
-          
+        <Link to={`/update/${publicId}`}><button
+        onClick={(() => console.log(publicId))}>Update</button></Link>
         <button 
           onClick={() => deleteImage(publicId)}
           className='delete-button'

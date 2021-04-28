@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { uploadImage, uploadEvent } from '../../api-utils';
+import React, { useEffect, useState } from 'react';
+import { uploadImage, uploadEvent, updateImage, fetchImage } from '../../api-utils';
 import './Upload.css';
 
 type Props = {
   forEvent: boolean;
+  publicIdForUpdate: string;
 }
 
-const Upload: React.FC<Props> = ({ forEvent }) => {
+const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
   const [previewSource, setPreviewSource] = useState<any>();
   const [title, setTitle] = useState<string>('');
   const [medium, setMedium] = useState<string>('');
@@ -22,14 +23,27 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
     |price=${price}
     |eventDay=${day}`;
 
-  const previewFile = (file: Blob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result ? reader.result : '');
+    const previewFile = (file: Blob) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setPreviewSource(reader.result ? reader.result : '');
     }
 
   }
+
+  useEffect(() => {
+    console.log(publicIdForUpdate, 'useEffect')
+    fetchImage('m-albano/events/hotsr8yatzendqyfbbb3')
+    .then(image => {
+      setTitle(image.title)
+      setMedium(image.medium)
+      setDimensions(image.dimensions)
+      setForSale(image.forSale)
+      setPrice(image.price)
+      setDay(image.eventDay)
+    })
+  }, [publicIdForUpdate])
 
   const handleFileInput = (e: React.ChangeEvent<any>) => {
     const file = e.target.files[0];
@@ -48,6 +62,7 @@ const Upload: React.FC<Props> = ({ forEvent }) => {
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
+    if(publicIdForUpdate) updateImage(publicIdForUpdate, metadata);
     if(!forEvent) uploadImage(previewSource, metadata);
     else uploadEvent(previewSource, metadata);
     console.log(metadata);

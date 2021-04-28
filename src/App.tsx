@@ -12,6 +12,7 @@ import LogInPage from './components/auth/LogInPage';
 import SignupPage from './components/auth/SignupPage';
 import './App.css';
 import AddEvent from './components/admin/AddEvent';
+import Update from './components/admin/Update';
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route
             exact path='/'
             component={ImageList}
+          />
+          <Route
+            path="/update/:publicId"
+            component={Update}
           />
           <Route
             exact path='/login'

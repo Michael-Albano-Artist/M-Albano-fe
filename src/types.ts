@@ -9,6 +9,11 @@ export interface Metadata {
 
 export interface GalleryItem {
   metadata: Metadata,
-  publicId: string
+  publicId: string;
 
+}
+
+export interface State {
+  loading: boolean;
+  images: GalleryItem[];
 }
