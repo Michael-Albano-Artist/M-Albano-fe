@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { uploadImage, uploadEvent, updateImage, fetchImage } from '../../api-utils';
+import { useSelector } from 'react-redux';
+import { uploadImage, uploadEvent, updateImage } from '../../api-utils';
+import { selectImages } from '../../selectors/stateSelectors';
+import { findByPublicId } from '../../utils';
 import './Upload.css';
 
 type Props = {
   forEvent: boolean;
-  publicIdForUpdate: string;
+  publicIdForUpdate: string ;
 }
 
 const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
+  const images = useSelector(selectImages);
+  const imageForUpdate = findByPublicId(images, publicIdForUpdate);
+  const metadata = imageForUpdate ? imageForUpdate.metadata : null;
   const [previewSource, setPreviewSource] = useState<any>();
   const [title, setTitle] = useState<string>('');
   const [medium, setMedium] = useState<string>('');
@@ -15,7 +21,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
   const [forSale, setForSale] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [day, setDay] = useState<string>('');
-  const metadata = 
+  const newMetadata = 
     `title=${title}
     |medium=${medium}
     |dimensions=${dimensions}
@@ -32,18 +38,18 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
 
   }
 
+
   useEffect(() => {
-    console.log(publicIdForUpdate, 'useEffect')
-    fetchImage('m-albano/events/hotsr8yatzendqyfbbb3')
-    .then(image => {
-      setTitle(image.title)
-      setMedium(image.medium)
-      setDimensions(image.dimensions)
-      setForSale(image.forSale)
-      setPrice(image.price)
-      setDay(image.eventDay)
-    })
-  }, [publicIdForUpdate])
+    if(metadata) {
+    setTitle(metadata.title)
+    setMedium(metadata.medium)
+    setDimensions(metadata.dimensions)
+    setForSale(metadata.forSale)
+    setPrice(metadata.price)
+    setDay(metadata.eventDay)
+    }
+  }, [metadata])
+ 
 
   const handleFileInput = (e: React.ChangeEvent<any>) => {
     const file = e.target.files[0];
@@ -62,10 +68,9 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    if(publicIdForUpdate) updateImage(publicIdForUpdate, metadata);
-    if(!forEvent) uploadImage(previewSource, metadata);
-    else uploadEvent(previewSource, metadata);
-    console.log(metadata);
+    if(publicIdForUpdate) updateImage(publicIdForUpdate, newMetadata);
+    if(!forEvent) uploadImage(previewSource, newMetadata);
+    else uploadEvent(previewSource, newMetadata);
     setPreviewSource('');
   }
 

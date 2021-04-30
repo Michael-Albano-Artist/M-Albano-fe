@@ -2,19 +2,28 @@ import React from 'react'
 import { GalleryItem } from '../../types'
 import { Image } from 'cloudinary-react';
 import './ImageItem.css';
-import { deleteImage } from '../../api-utils';
-import { arrangeDate } from '../../utils';
+import { arrangeDate, convertPublicId } from '../../utils';
 import { Link } from 'react-router-dom';
+import { removeImage } from '../../actions/imageActions';
+import { useDispatch } from 'react-redux';
 
 
 type Props = {
   image: GalleryItem;
   index: number;
+  forEvent: boolean;
 }
 
-const ImageItem: React.FC<Props> = ({ image, index }) => {
+const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
   const { publicId, metadata } = image;
   const cloudinaryName = process.env.REACT_APP_CLOUD_NAME;
+  const dispatch = useDispatch();
+  const updateId = convertPublicId(publicId);
+
+  const handleDelete = () => {
+    dispatch(removeImage(publicId))
+    
+  }
   
   return (
     <div className='image-box'>
@@ -50,10 +59,15 @@ const ImageItem: React.FC<Props> = ({ image, index }) => {
           </>
           }
 
-        <Link to={`/update/${publicId}`}><button
-        onClick={(() => console.log(publicId))}>Update</button></Link>
+        <Link 
+          to={!forEvent 
+            ? `/update/${updateId}` 
+            : `/update/event/${updateId}`}>
+          <button>Update</button>
+        </Link>
+        
         <button 
-          onClick={() => deleteImage(publicId)}
+          onClick={handleDelete}
           className='delete-button'
           >Delete  
         </button>

@@ -5,12 +5,8 @@ import { fetchImages } from '../../actions/imageActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectImages } from '../../selectors/stateSelectors';
 
-type Props = {
-  forEvents: boolean;
-}
 
-
-const ImageList: React.FC<Props> = ({ forEvents }) => {
+const ImageList: React.FC = () => {
   const images = useSelector(selectImages);
   const dispatch = useDispatch();
   
@@ -25,7 +21,7 @@ const ImageList: React.FC<Props> = ({ forEvents }) => {
   const eventItems = (filteredEvents) ? filteredEvents.map(
     (image, index) => (
       <li key={index}>
-      <ImageItem image={image} index={index} />
+      <ImageItem image={image} index={index} forEvent/>
       </li>
     ))
     : null
@@ -38,7 +34,7 @@ const ImageList: React.FC<Props> = ({ forEvents }) => {
   const imageItems = (filteredImages) ? filteredImages.map(
     (image, index) => (
       <li key={index}>
-      <ImageItem image={image} index={index} />
+      <ImageItem image={image} index={index} forEvent={false}/>
       </li>
     ))
       : null

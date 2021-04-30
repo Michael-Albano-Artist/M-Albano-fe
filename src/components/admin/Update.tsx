@@ -1,18 +1,18 @@
 import React from 'react'
 import { useParams } from 'react-router'
-import ImageList from '../images/ImageList'
+import { restorePublicId } from '../../utils'
 import Upload from './upload'
 
 const Update: React.FC = () => {
-  const publicId: string = useParams();
-  console.log(publicId, 'update')
-  return (
-    <div>
-      <ImageList forEvents/>
-      <h1>what the fuck</h1>
-      <Upload forEvent={false} publicIdForUpdate={publicId} />
-    </div>
-  )
+
+  const { updateId } = useParams<any>();
+  const id = restorePublicId(updateId);
+
+    return (
+      <div>
+        <Upload forEvent={false} publicIdForUpdate={id} />
+      </div>
+    )
 }
 
 export default Update

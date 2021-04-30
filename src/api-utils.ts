@@ -1,3 +1,5 @@
+
+
 const api: string = process.env.REACT_APP_API_URL as string;
 
 export const uploadImage = async(imageString: string | ArrayBuffer | null, metaData: string): Promise<void> => {
@@ -52,14 +54,15 @@ export const updateImage = async(publicId: string, metadata: string) => {
   }
 }
 
-export const deleteImage = async(publicId: string) => {
+export const deleteImage = async(publicId: string): Promise<any> => {
   try {
-    await fetch(api, {
+    console.log('fetch delete', publicId)
+    return await fetch(api, {
       method: 'DELETE',
       body: JSON.stringify({publicId: publicId}),
       headers: {'Content-type': 'application/json'}
     });
-
+     
   } catch (error) {
       console.log(error);
   }

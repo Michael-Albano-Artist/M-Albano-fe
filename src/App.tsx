@@ -13,6 +13,7 @@ import SignupPage from './components/auth/SignupPage';
 import './App.css';
 import AddEvent from './components/admin/AddEvent';
 import Update from './components/admin/Update';
+import UpdateEvent from './components/admin/UpdateEvent';
 
 function App() {
   return (
@@ -22,10 +23,6 @@ function App() {
           <Route
             exact path='/'
             component={ImageList}
-          />
-          <Route
-            path="/update/:publicId"
-            component={Update}
           />
           <Route
             exact path='/login'
@@ -42,6 +39,14 @@ function App() {
           <PrivateRoute
             exact path='/event'
             component={AddEvent}
+          />
+          <PrivateRoute
+            exact path='/update/:updateId'
+            component={Update}
+          />
+           <PrivateRoute
+            exact path='/update/event/:updateId'
+            component={UpdateEvent}
           />
         </Switch>
       </Router>

@@ -2,7 +2,7 @@ import { SET_IMAGES, SET_LOADING } from "../actions/imageActions";
 
 const initialState = {
   loading: true,
-  images: []
+  images: [],
 }
 
 export default function reducer(

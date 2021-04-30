@@ -1,5 +1,5 @@
 import { GalleryItem } from '../types'
-import { getImages } from '../api-utils'
+import { deleteImage, getImages } from '../api-utils'
 
 export const SET_IMAGES = 'SET_IMAGES';
 export const setImages = (images: GalleryItem[]) => ({
@@ -13,6 +13,8 @@ export const setLoading = (loading: boolean)=> ({
   payload: loading
 });
 
+export const DELETE_IMAGE = 'DELETE_IMAGE';
+
 
 export const fetchImages = () => (dispatch: any) => {
   getImages()
@@ -22,3 +24,16 @@ export const fetchImages = () => (dispatch: any) => {
 
     .finally(() => dispatch(setLoading(false)));
 }
+
+export const removeImage = (publicId: string) => 
+  (dispatch: any) => {
+    deleteImage(publicId)
+      .then((image: GalleryItem) => {
+        dispatch({
+          type: DELETE_IMAGE,
+          payload: image.publicId
+        });
+      })
+
+      .finally(() => dispatch(setLoading(false)));
+  }
