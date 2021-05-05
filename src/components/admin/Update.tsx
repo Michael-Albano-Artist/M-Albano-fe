@@ -10,7 +10,7 @@ const Update: React.FC = () => {
 
     return (
       <div>
-        <Upload forEvent={false} publicIdForUpdate={id} />
+        <Upload forEvent={false} publicIdForUpdate={id} page={'update'} />
       </div>
     )
 }

@@ -53,9 +53,10 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
             {(metadata.forSale === 'not') &&
               <h5>not for sale</h5>
             }
-            {metadata.eventDay &&
+            {forEvent &&
               <h5>{arrangeDate(metadata.eventDay)}</h5>
             }
+            
           </>
           }
 
@@ -65,7 +66,7 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
             : `/update/event/${updateId}`}>
           <button>Update</button>
         </Link>
-        
+
         <button 
           onClick={handleDelete}
           className='delete-button'

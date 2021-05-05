@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { uploadImage, uploadEvent, updateImage } from '../../api-utils';
 import { selectImages } from '../../selectors/stateSelectors';
-import { findByPublicId } from '../../utils';
+import { findByPublicId, reArrangeDate } from '../../utils';
 import './Upload.css';
 
 type Props = {
   forEvent: boolean;
-  publicIdForUpdate: string ;
+  publicIdForUpdate: string;
+  page: string;
 }
 
-const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
+const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
   const images = useSelector(selectImages);
   const imageForUpdate = findByPublicId(images, publicIdForUpdate);
   const metadata = imageForUpdate ? imageForUpdate.metadata : null;
@@ -34,21 +35,23 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setPreviewSource(reader.result ? reader.result : '');
+       }
+
     }
-
-  }
-
+    
+    const date = reArrangeDate(new Date().toLocaleDateString("en-US"));
 
   useEffect(() => {
     if(metadata) {
+      console.log(date)
     setTitle(metadata.title)
     setMedium(metadata.medium)
     setDimensions(metadata.dimensions)
     setForSale(metadata.forSale)
     setPrice(metadata.price)
-    setDay(metadata.eventDay)
+    setDay(metadata.eventDay ? metadata.eventDay : date)
     }
-  }, [metadata])
+  }, [metadata, date])
  
 
   const handleFileInput = (e: React.ChangeEvent<any>) => {
@@ -68,9 +71,10 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    if(publicIdForUpdate) updateImage(publicIdForUpdate, newMetadata);
-    if(!forEvent) uploadImage(previewSource, newMetadata);
-    else uploadEvent(previewSource, newMetadata);
+    if(page === 'update' || page === 'update-event') 
+      updateImage(publicIdForUpdate, newMetadata);
+    if(page === 'add-image') uploadImage(previewSource, newMetadata);
+    if(page === 'add-event') uploadEvent(previewSource, newMetadata);
     setPreviewSource('');
   }
 
@@ -98,8 +102,9 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
 
         <label htmlFor='medium'>
             {
-            (!forEvent) ? 'medium' 
-            : 'description'
+            (!forEvent) 
+              ? 'medium' 
+              : 'description'
             }
         </label>
         <input
@@ -173,7 +178,11 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate }) => {
 
       {previewSource && (
 
-        <img src={previewSource} alt="file chosen"/>
+        <img 
+          src={previewSource} 
+          alt="file chosen" 
+          className='preview-pic'
+        />
 
       )}
 

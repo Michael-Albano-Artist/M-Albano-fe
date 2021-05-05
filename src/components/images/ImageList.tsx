@@ -3,11 +3,13 @@ import './ImageList.css';
 import ImageItem from './ImageItem';
 import { fetchImages } from '../../actions/imageActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectImages } from '../../selectors/stateSelectors';
+import { selectImages, selectLoading } from '../../selectors/stateSelectors';
+import Loading from '../loading/LoadingScreen';
 
 
 const ImageList: React.FC = () => {
   const images = useSelector(selectImages);
+  const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -43,7 +45,9 @@ const ImageList: React.FC = () => {
   return (
   
     <div className='list-box'>
-
+      {loading &&
+      <Loading />
+      }
       {filteredEvents && 
       
       <ul>

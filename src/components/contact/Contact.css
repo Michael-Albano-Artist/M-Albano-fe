@@ -1,0 +1,73 @@
+.contact-link {
+  color: white;
+  font-family: 'Roboto Mono';
+  cursor: pointer;
+}
+
+.modal-invisible {
+  visibility: hidden;
+}
+
+.modal-visible > div {
+  position: relative;
+}
+
+.modal-inner {
+  animation: grow ease-in-out .5s;
+}
+
+.contact-form-outer {
+  z-index: 10;
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  width: 15rem;
+  background: black;
+  border: solid white 3px;
+  border-radius: 5px;
+  
+  
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.contact-form > label {
+  color: white;
+  margin-bottom: .5em;
+}
+
+.contact-form > input {
+  margin-bottom: 2em;
+  border-radius: 5px;
+}
+
+.contact-form > button {
+  color: red;
+  border-radius: 5px;
+  width: 4rem;
+}
+
+.x-box {
+  z-index: 11;
+  position: relative;
+  top: 3.75rem;
+  left: 1.75rem;
+  color: white;
+
+}
+
+.textarea {
+  height: 4rem;
+}
+
+@keyframes grow {
+  0% {transform: scale(0); opacity: 0}
+  100% {transform: scale(1); opacity: 1;}
+}

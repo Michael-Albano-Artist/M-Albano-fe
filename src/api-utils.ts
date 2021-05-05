@@ -78,12 +78,12 @@ export const getImages = async() => {
   }
 }
 
-export const fetchImage = async(publicId: string) => {
-  try {
-    const res = await fetch(`${api}/image/${publicId}`);
-    return await res.json();
+// export const fetchImage = async(publicId: string) => {
+//   try {
+//     const res = await fetch(`${api}/image/${publicId}`);
+//     return await res.json();
 
-  } catch (error) {
-      console.error(error);
-  }
-}
+//   } catch (error) {
+//       console.error(error);
+//   }
+// }
