@@ -2,7 +2,7 @@ import React from 'react'
 import { GalleryItem } from '../../types'
 import { Image } from 'cloudinary-react';
 import './ImageItem.css';
-import { arrangeDate, convertPublicId } from '../../utils';
+import { arrangeDate, convertPublicId } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import { removeImage } from '../../actions/imageActions';
 import { useDispatch } from 'react-redux';

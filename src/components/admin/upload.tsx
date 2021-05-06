@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { uploadImage, uploadEvent, updateImage } from '../../api-utils';
+import { uploadImage, uploadEvent, updateImage } from '../../utils/api-utils';
 import { selectImages } from '../../selectors/stateSelectors';
-import { findByPublicId, reArrangeDate } from '../../utils';
+import { findByPublicId, reArrangeDate } from '../../utils/utils';
 import './Upload.css';
 
 type Props = {

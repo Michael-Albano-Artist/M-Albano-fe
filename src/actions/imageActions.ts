@@ -1,5 +1,5 @@
 import { GalleryItem } from '../types'
-import { deleteImage, getImages } from '../api-utils'
+import { deleteImage, getImages } from '../utils/api-utils'
 
 export const SET_IMAGES = 'SET_IMAGES';
 export const setImages = (images: GalleryItem[]) => ({

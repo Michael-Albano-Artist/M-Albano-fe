@@ -1,4 +1,4 @@
-import { GalleryItem } from "./types";
+import { GalleryItem } from "../types";
 
 export const arrangeDate = (date: string): string => {
   const dateArr = date.split('-');

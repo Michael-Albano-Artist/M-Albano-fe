@@ -1,6 +1,5 @@
-
-
 const api: string = process.env.REACT_APP_API_URL as string;
+const emailApi: string = process.env.REACT_APP_EMAIL_API_URL as string;
 
 export const uploadImage = async(imageString: string | ArrayBuffer | null, metaData: string): Promise<void> => {
   try {
@@ -76,6 +75,21 @@ export const getImages = async() => {
   } catch (error) {
       console.error(error);
   }
+}
+
+export const sendMessage = async(message) => {
+  const res = await fetch(emailApi, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(message)
+  });
+
+  const json = await res.json();
+  if(!res.ok) throw json;
+
+  return json;
 }
 
 // export const fetchImage = async(publicId: string) => {

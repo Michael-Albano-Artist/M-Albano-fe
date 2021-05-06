@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router'
-import { restorePublicId } from '../../utils'
+import { restorePublicId } from '../../utils/utils'
 import Upload from './upload'
 
 const Update: React.FC = () => {
