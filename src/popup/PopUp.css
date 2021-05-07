@@ -1,0 +1,39 @@
+.contact-link {
+  color: white;
+  font-family: 'Roboto Mono';
+  cursor: pointer;
+}
+
+.modal-invisible {
+  visibility: hidden;
+}
+
+.modal-visible > div {
+  position: relative;
+}
+
+.modal-inner {
+  animation: grow ease-in-out .5s;
+}
+
+.x-box-contact, .x-box-bio, .x-box-music {
+  z-index: 11;
+  position: relative;
+  top: 3.75rem;
+  left: 1.75rem;
+  color: white;
+}
+
+.x-box-bio {
+ left: -3.5rem;
+}
+
+.x-box-music {
+  left: -7rem;
+}
+
+
+@keyframes grow {
+  0% {transform: scale(0); opacity: 0}
+  100% {transform: scale(1); opacity: 1;}
+}

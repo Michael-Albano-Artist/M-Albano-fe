@@ -1,7 +1,23 @@
 .upload-box {
+  position: relative;
   background: black;
   min-height: 100vh;
   padding: 5rem;
+}
+
+.back-link {
+  color: white;
+  font-family: 'Roboto Mono';
+  text-decoration: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.form-headline {
+  font-family: 'Abril Fatface';
+  text-shadow: red 2px 2px 2px;
+  color: white;
 }
 
 .upload-form {

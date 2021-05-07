@@ -6,8 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectImages, selectLoading } from '../../selectors/stateSelectors';
 import Loading from '../loading/LoadingScreen';
 
+interface Props {
+  forAdmin: boolean;
+}
 
-const ImageList: React.FC = () => {
+
+const ImageList: React.FC<Props> = ({ forAdmin }) => {
   const images = useSelector(selectImages);
   const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
@@ -23,7 +27,12 @@ const ImageList: React.FC = () => {
   const eventItems = (filteredEvents) ? filteredEvents.map(
     (image, index) => (
       <li key={index}>
-      <ImageItem image={image} index={index} forEvent/>
+        <ImageItem 
+          image={image} 
+          index={index} 
+          forEvent 
+          forAdmin={forAdmin}
+        />
       </li>
     ))
     : null
@@ -36,7 +45,12 @@ const ImageList: React.FC = () => {
   const imageItems = (filteredImages) ? filteredImages.map(
     (image, index) => (
       <li key={index}>
-      <ImageItem image={image} index={index} forEvent={false}/>
+        <ImageItem 
+          image={image} 
+          index={index} 
+          forEvent={false}
+          forAdmin={forAdmin}
+        />
       </li>
     ))
       : null

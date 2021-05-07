@@ -7,10 +7,10 @@ const HomePage: React.FC = () => {
   return (
     <div className='home-box' >
       <div className='outer-header-box'>
-        <Header />
+        <Header forAdmin={false}/>
       </div>
       <div className='list-box'>
-      <ImageList />
+        <ImageList forAdmin={false}/>
       </div>
     </div>
   )

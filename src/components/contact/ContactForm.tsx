@@ -6,6 +6,7 @@ const ContactForm: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [senderEmail, setSenderEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [messageSent, setMessageSent] = useState<boolean>(false);
   const flag = 'This message was sent via michaelalbano.art';
   const email = process.env.REACT_APP_EMAIL_HANDLER;
 
@@ -24,15 +25,25 @@ const ContactForm: React.FC = () => {
       message,
       flag
     });
-    console.log({name,
-      email,
-      senderEmail,
-      message,
-      flag})
+    setName('');
+    setSenderEmail('');
+    setMessage('');
+    setMessageSent(true);
   }
 
   return (
     <div className='contact-form-outer'>
+      {!messageSent &&
+        <h2 className='contact-message' 
+          >to discuss sales and commissions, just send me a message.
+        </h2>
+      }
+      {messageSent &&
+      <div className='thanks-message'>
+        <h1>Hey, Thanks!</h1>
+        <h2>I'll get back to ya as soon as I can.</h2>
+      </div>
+      }
       <form 
         className='contact-form'
         onSubmit={handleSubmit}

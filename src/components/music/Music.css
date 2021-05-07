@@ -1,0 +1,28 @@
+.music-box-outer {
+  z-index: 10;
+  position: absolute;
+  top: 3rem;
+  left: -8rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  width: 15rem;
+  background: black;
+  border: solid white 3px;
+  border-radius: 5px;
+}
+.band-name {
+  color: white;
+  font-family: 'Roboto Mono';
+  margin-bottom: -3px;
+}
+
+.band-link {
+  color: red;
+  font-family: 'Roboto Mono';
+  font-size: .75em;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}

@@ -14,6 +14,8 @@ import Update from './components/admin/Update';
 import UpdateEvent from './components/admin/UpdateEvent';
 import AddImage from './components/admin/AddImage';
 import HomePage from './components/home/HomePage';
+import AdminPage from './components/admin/AdminPage';
+import ImageDetail from './components/images/ImageDetail';
 
 
 function App() {
@@ -26,6 +28,10 @@ function App() {
             component={HomePage}
           />
           <Route
+            exact path='/detail/:linkId'
+            component={ImageDetail}
+          />
+          <Route
             exact path='/login'
             component={LogInPage}
           />
@@ -35,11 +41,15 @@ function App() {
           />
           <PrivateRoute
             exact path='/admin'
-            component={AddImage}
+            component={AdminPage}
           />
           <PrivateRoute
             exact path='/event'
             component={AddEvent}
+          />
+          <PrivateRoute
+            exact path='/image'
+            component={AddImage}
           />
           <PrivateRoute
             exact path='/update/:updateId'

@@ -12,14 +12,15 @@ type Props = {
   image: GalleryItem;
   index: number;
   forEvent: boolean;
+  forAdmin: boolean;
 }
 
-const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
+const ImageItem: React.FC<Props> = ({ image, index, forEvent, forAdmin }) => {
   const { publicId, metadata } = image;
   const cloudinaryName = process.env.REACT_APP_CLOUD_NAME;
   const dispatch = useDispatch();
-  const updateId = convertPublicId(publicId);
-
+  const linkId = convertPublicId(publicId);
+  
   const handleDelete = () => {
     dispatch(removeImage(publicId))
     
@@ -28,6 +29,7 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
   return (
     <div className='image-box'>
 
+      <Link to={`/detail/${linkId}`}>
         <Image
             key={index}
             cloudName={cloudinaryName}
@@ -35,6 +37,7 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
             width='300'
             crop='scale' 
         />
+      </Link>
 
           
 
@@ -44,15 +47,19 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
           <h4>{metadata.title}</h4>
           <h5>{metadata.medium}</h5>
           <h5>{metadata.dimensions}</h5>
+
             {(metadata.forSale === 'yes') &&
               <h5>{`$${metadata.price}`}</h5>
             }
+
             {(metadata.forSale === 'no') &&
               <h5>sold</h5>
             }
+
             {(metadata.forSale === 'not') &&
               <h5>not for sale</h5>
             }
+
             {forEvent &&
               <h5>{arrangeDate(metadata.eventDay)}</h5>
             }
@@ -60,18 +67,22 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent }) => {
           </>
           }
 
-        <Link 
-          to={!forEvent 
-            ? `/update/${updateId}` 
-            : `/update/event/${updateId}`}>
-          <button>Update</button>
-        </Link>
+        {forAdmin &&
+          <>
+            <Link 
+              to={!forEvent 
+                ? `/update/${linkId}` 
+                : `/update/event/${linkId}`}>
+              <button>Update</button>
+            </Link>
 
-        <button 
-          onClick={handleDelete}
-          className='delete-button'
-          >Delete  
-        </button>
+            <button 
+              onClick={handleDelete}
+              className='delete-button'
+              >Delete  
+            </button>
+          </>
+        }
       </div>
   )
 }

@@ -1,0 +1,20 @@
+.detail-outer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: black;
+  background-position: cover;
+}
+
+.detail-link {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  color: white;
+  font-family: 'Roboto Mono';
+  font-size: 1.5em;
+  text-decoration: none;
+
+}

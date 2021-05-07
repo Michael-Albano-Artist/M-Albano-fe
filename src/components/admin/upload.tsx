@@ -4,6 +4,7 @@ import { uploadImage, uploadEvent, updateImage } from '../../utils/api-utils';
 import { selectImages } from '../../selectors/stateSelectors';
 import { findByPublicId, reArrangeDate } from '../../utils/utils';
 import './Upload.css';
+import { Link } from 'react-router-dom';
 
 type Props = {
   forEvent: boolean;
@@ -80,6 +81,10 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
 
   return (
     <div className='upload-box' >
+      <Link to='/admin' className='back-link'>{'<back'}</Link>
+      <h1 className='form-headline' >
+        {forEvent ? 'add an event' : 'add an image'}
+      </h1>
       <form onSubmit={handleSubmit}  className='upload-form'>
 
         <label htmlFor="upload">choose a file</label>
