@@ -1,0 +1,64 @@
+
+.contact-form-outer {
+  z-index: 10;
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  width: 15rem;
+  background: black;
+  border: solid white 3px;
+  border-radius: 5px;
+  
+  
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.contact-message {
+  color: white;
+  font-family: 'Roboto Mono';
+  font-size: 1em;
+  text-align: center;
+}
+
+.contact-form > label {
+  color: white;
+  margin-bottom: .5em;
+}
+
+.contact-form > input {
+  margin-bottom: 2em;
+  border-radius: 5px;
+}
+
+.contact-form > button {
+  color: red;
+  border-radius: 5px;
+  width: 4rem;
+}
+
+.thanks-message > h1 {
+  font-family: 'Abril Fatface';
+  font-size: 1.75em;
+  text-shadow: red 3px 3px 3px;
+  text-align: center;
+  color: white;
+}
+
+.thanks-message > h2 {
+  font-family: 'Roboto Mono';
+  font-size: 1em;
+  text-align: center;
+  color: white;
+}
+
+.textarea {
+  height: 4rem;
+}

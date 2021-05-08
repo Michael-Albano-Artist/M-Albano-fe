@@ -1,0 +1,25 @@
+.auth-form-outer {
+  background: black;
+  height: 100vh;
+  padding: 20px;
+}
+
+.auth-form-outer > form > h1 {
+  color: white;
+  font-family: 'Abril Fatface';
+  text-shadow: red 3px 3px 2px;
+}
+
+.auth-form-outer > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form-outer > form > input {
+  width: 300px;
+  margin: 15px;
+}
+
+.auth-form-outer > form > button {
+  width: 75px;
+}

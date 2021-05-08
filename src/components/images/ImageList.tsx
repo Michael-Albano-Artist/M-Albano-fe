@@ -1,42 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { fetchEvents, fetchImages } from '../../api-utils';
-// import { Image } from 'cloudinary-react';
-import { GalleryItem } from '../../types';
+import React, { useEffect } from 'react';
 import './ImageList.css';
 import ImageItem from './ImageItem';
+import { fetchImages } from '../../actions/imageActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectImages, selectLoading } from '../../selectors/stateSelectors';
+import Loading from '../loading/LoadingScreen';
 
-type Props = {
-  forEvents: boolean;
+interface Props {
+  forAdmin: boolean;
 }
 
 
-const ImageList: React.FC<Props> = ({ forEvents }) => {
-  const [images, setImages] = useState<GalleryItem[]>([]);
-  const [events, setEvents] = useState<GalleryItem[]>([]);
+const ImageList: React.FC<Props> = ({ forAdmin }) => {
+  const images = useSelector(selectImages);
+  const loading = useSelector(selectLoading);
+  const dispatch = useDispatch();
   
   useEffect(() => {
-    fetchImages()
-      .then(images => setImages(images));
-    fetchEvents()
-      .then(res => setEvents(res));
-  }, []);
+    dispatch(fetchImages())
+  }, [dispatch]);
+
+  const filteredEvents = images.filter(
+    image => image.publicId.match(/event/g)
+  )
   
-  const eventItems = (events) ? events.map(
+  const eventItems = (filteredEvents) ? filteredEvents.map(
     (image, index) => (
       <li key={index}>
-      <ImageItem image={image} index={index} />
+        <ImageItem 
+          image={image} 
+          index={index} 
+          forEvent 
+          forAdmin={forAdmin}
+        />
       </li>
     ))
     : null
 
 
-const filteredImages = images.filter(
-  image => !image.publicId.match(/event/g))
+  const filteredImages = images.filter(
+    image => !image.publicId.match(/event/g)
+  )
 
   const imageItems = (filteredImages) ? filteredImages.map(
     (image, index) => (
       <li key={index}>
-      <ImageItem image={image} index={index} />
+        <ImageItem 
+          image={image} 
+          index={index} 
+          forEvent={false}
+          forAdmin={forAdmin}
+        />
       </li>
     ))
       : null
@@ -45,8 +59,10 @@ const filteredImages = images.filter(
   return (
   
     <div className='list-box'>
-
-      {events && 
+      {loading &&
+      <Loading />
+      }
+      {filteredEvents && 
       
       <ul>
         {eventItems}

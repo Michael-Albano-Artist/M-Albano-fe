@@ -1,0 +1,17 @@
+.home-box {
+  
+}
+
+.outer-header-box {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 6rem;
+}
+
+.list-box {
+  position: relative;
+  padding-top: 4rem;
+}

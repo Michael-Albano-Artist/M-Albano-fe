@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useLogin, useSignup } from '../../context/AuthContext';
 import { useHistory } from 'react-router-dom';
+import './Auth.css';
 
 type Props = {
   newUser: boolean;
@@ -27,7 +28,7 @@ const AuthForm: React.FC<Props> = ({ newUser }) => {
   }
 
   return (
-    <div>
+    <div className='auth-form-outer' >
       <form onSubmit={newUser ? handleSignup : handleLogin}>
         {newUser &&
         <h1>Sign Up</h1>

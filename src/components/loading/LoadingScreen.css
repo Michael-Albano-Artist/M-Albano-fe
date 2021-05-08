@@ -1,0 +1,32 @@
+.loading-box {
+  padding-top: 4rem;
+}
+
+.babyface {
+  max-width: 300px;
+  animation: loadSpin ease-in-out infinite 4s;
+}
+
+.loading-banner {
+  margin-left: 2rem;
+  font-size: 1.5em;
+  color: #f0f0f0;
+  font-family: 'Roboto-Mono';
+  animation: fade ease-in-out 1s infinite;
+}
+
+@keyframes loadSpin {
+  0% {transform: scale(0.2) rotate(0);}
+  25% {transform: scale(1) rotate(360deg);}
+  50% {transform: scale(0.5) rotate(-360deg);}
+  75% {transform: scale(1) rotate(360deg);}
+  100% {transform: scale(0.2);}
+  
+}
+
+@keyframes fade {
+
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}
