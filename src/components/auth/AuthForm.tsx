@@ -36,18 +36,22 @@ const AuthForm: React.FC<Props> = ({ newUser }) => {
         {!newUser &&
         <h1>Login</h1>
         }
+        <label htmlFor='email'>email</label>
         <input
           type='email'
           id='email'
           name='email'
           value={email}
+          placeholder='email'
           onChange={({ target }) => setEmail(target.value)}
         />
+        <label htmlFor='password'>password</label>
         <input 
           type='password'
           id='password'
           name='password'
           value={password}
+          placeholder='password'
           onChange={({ target }) => setPassword(target.value)}
         />
         <button>Submit</button>

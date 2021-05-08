@@ -23,3 +23,8 @@
 .auth-form-outer > form > button {
   width: 75px;
 }
+
+.auth-form-outer > form > label {
+  font-family: 'Roboto Mono';
+  color: white;
+}
