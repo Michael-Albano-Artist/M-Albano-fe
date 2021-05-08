@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import About from '../components/bio/About';
+import About from '../bio/About';
 
 
-import ContactForm from '../components/contact/ContactForm';
-import Music from '../components/music/Music';
+import ContactForm from '../contact/ContactForm';
+import Music from '../music/Music';
 import './PopUp.css';
 
 interface Props {

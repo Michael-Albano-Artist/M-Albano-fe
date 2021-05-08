@@ -1,0 +1,11 @@
+.admin-page-outer {
+  position: relative;
+}
+
+.admin-header-box {
+  z-index: 1;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}

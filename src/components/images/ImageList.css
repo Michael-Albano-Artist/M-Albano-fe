@@ -30,3 +30,13 @@
     margin-bottom: 50px;
   }
 }
+
+@media screen and (min-width: 1025px) {
+  .picture-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}
