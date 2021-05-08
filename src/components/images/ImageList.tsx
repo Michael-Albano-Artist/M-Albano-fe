@@ -64,14 +64,14 @@ const ImageList: React.FC<Props> = ({ forAdmin }) => {
       }
       {filteredEvents && 
       
-      <ul>
+      <ul className='event-list' >
         {eventItems}
       </ul>
 
       }
       {images &&
 
-      <ul>
+      <ul className='picture-list' >
         {imageItems}
       </ul>
 

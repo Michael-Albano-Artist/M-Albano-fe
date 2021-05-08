@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PopUp from '../../popup/PopUp';
+import PopUp from '../popup/PopUp';
 import './Header.css';
 
 interface Props {

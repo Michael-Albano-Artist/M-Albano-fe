@@ -27,3 +27,9 @@
     margin-bottom: 50px;
   }
 }
+
+@media screen and (min-width: 1025px) {
+  .image-box {
+    margin: 0 2em 0 2em;
+  }
+}
