@@ -9,7 +9,7 @@
   color: white;
   font-family: 'Roboto Mono';
   text-decoration: none;
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 20px;
 }

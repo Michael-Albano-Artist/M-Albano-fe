@@ -4,7 +4,8 @@ import { uploadImage, uploadEvent, updateImage } from '../../utils/api-utils';
 import { selectImages } from '../../selectors/stateSelectors';
 import { findByPublicId, reArrangeDate } from '../../utils/utils';
 import './Upload.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Confirm from './Confirm';
 
 type Props = {
   forEvent: boolean;
@@ -16,6 +17,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
   const images = useSelector(selectImages);
   const imageForUpdate = findByPublicId(images, publicIdForUpdate);
   const metadata = imageForUpdate ? imageForUpdate.metadata : null;
+  const history = useHistory();
   const [previewSource, setPreviewSource] = useState<any>();
   const [title, setTitle] = useState<string>('');
   const [medium, setMedium] = useState<string>('');
@@ -23,6 +25,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
   const [forSale, setForSale] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [day, setDay] = useState<string>('');
+  const [showConfirm, setShowConfirm] = useState<boolean>(false); 
   const newMetadata = 
     `title=${title}
     |medium=${medium}
@@ -43,14 +46,14 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
     const date = reArrangeDate(new Date().toLocaleDateString("en-US"));
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if(metadata) {
-      console.log(date)
-    setTitle(metadata.title)
-    setMedium(metadata.medium)
-    setDimensions(metadata.dimensions)
-    setForSale(metadata.forSale)
-    setPrice(metadata.price)
-    setDay(metadata.eventDay ? metadata.eventDay : date)
+      setTitle(metadata.title)
+      setMedium(metadata.medium)
+      setDimensions(metadata.dimensions)
+      setForSale(metadata.forSale)
+      setPrice(metadata.price)
+      setDay(metadata.eventDay ? metadata.eventDay : date)
     }
   }, [metadata, date])
  
@@ -73,18 +76,37 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     if(page === 'update' || page === 'update-event') 
-      updateImage(publicIdForUpdate, newMetadata);
+      setShowConfirm(true);
     if(page === 'add-image') uploadImage(previewSource, newMetadata);
     if(page === 'add-event') uploadEvent(previewSource, newMetadata);
     setPreviewSource('');
   }
 
+  const handleUpdate = (e: React.ChangeEvent<any>) => {
+    updateImage(publicIdForUpdate, newMetadata);
+    history.push('/admin');
+  }
+
+  const handleUpdateState = () => {
+    setShowConfirm(false);
+  }
+
   return (
     <div className='upload-box' >
       <Link to='/admin' className='back-link'>{'<back'}</Link>
-      <h1 className='form-headline' >
-        {forEvent ? 'add an event' : 'add an image'}
-      </h1>
+
+      {(page === 'update' || page === 'update-event') &&
+        <h1 className='form-headline'>update</h1>
+      }
+
+      {(page === 'add-image') &&
+        <h1 className='form-headline' >add an image</h1>
+      }
+
+      {(page === 'add-event') &&
+        <h1 className='form-headline' >add an image</h1>
+      }
+
       <form onSubmit={handleSubmit}  className='upload-form'>
 
         <label htmlFor="upload">choose a file</label>
@@ -159,7 +181,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
             id='forSale'
             onChange={handleChange}
           >
-
+              <option value=''>select one</option>
               <option value='yes'>yes</option>
               <option value='no'>sold</option>
               <option value='not'>not for sale</option>
@@ -181,7 +203,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
 
       </form>
 
-      {previewSource && (
+      {previewSource && 
 
         <img 
           src={previewSource} 
@@ -189,7 +211,15 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
           className='preview-pic'
         />
 
-      )}
+      }
+
+      {showConfirm &&
+        <Confirm
+          task='update'
+          handleStateChange={handleUpdateState}
+          handleTask={handleUpdate}
+        />
+      }
 
     </div>
   )
