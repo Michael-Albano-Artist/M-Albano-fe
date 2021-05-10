@@ -55,7 +55,6 @@ export const updateImage = async(publicId: string, metadata: string) => {
 
 export const deleteImage = async(publicId: string): Promise<any> => {
   try {
-    console.log('fetch delete', publicId)
     return await fetch(api, {
       method: 'DELETE',
       body: JSON.stringify({publicId: publicId}),

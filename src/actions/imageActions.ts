@@ -27,6 +27,7 @@ export const fetchImages = () => (dispatch: any) => {
 
 export const removeImage = (publicId: string) => 
   (dispatch: any) => {
+    dispatch(setLoading(true))
     deleteImage(publicId)
       .then((image: GalleryItem) => {
         dispatch({

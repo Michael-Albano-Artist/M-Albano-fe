@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GalleryItem } from '../../types'
 import { Image } from 'cloudinary-react';
 import './ImageItem.css';
@@ -6,6 +6,7 @@ import { arrangeDate, convertPublicId } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import { removeImage } from '../../actions/imageActions';
 import { useDispatch } from 'react-redux';
+import Confirm from '../admin/Confirm';
 
 
 type Props = {
@@ -20,10 +21,15 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent, forAdmin }) => {
   const cloudinaryName = process.env.REACT_APP_CLOUD_NAME;
   const dispatch = useDispatch();
   const linkId = convertPublicId(publicId);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   
   const handleDelete = () => {
     dispatch(removeImage(publicId))
-    
+    setShowConfirm(false)
+  }
+
+  const handleDeleteState = () => {
+    setShowConfirm(false);
   }
   
   return (
@@ -67,6 +73,14 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent, forAdmin }) => {
           </>
           }
 
+        {showConfirm &&
+          <Confirm 
+            task='delete' 
+            handleStateChange={handleDeleteState}
+            handleTask={handleDelete}
+          />
+        }
+
         {forAdmin &&
           <>
             <Link 
@@ -77,7 +91,7 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent, forAdmin }) => {
             </Link>
 
             <button 
-              onClick={handleDelete}
+              onClick={() => setShowConfirm(true)}
               className='delete-button'
               >Delete  
             </button>
