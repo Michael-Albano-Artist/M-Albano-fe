@@ -1,4 +1,5 @@
-import { SET_IMAGES, SET_LOADING } from "../actions/imageActions";
+import { SET_IMAGES, SET_LOADING, DELETE_IMAGE, SET_IMAGE } from "../actions/imageActions";
+import { GalleryItem } from '../types';
 
 const initialState = {
   loading: true,
@@ -19,6 +20,20 @@ export default function reducer(
           ...state,
           images: action.payload
         };
+
+      case SET_IMAGE:
+        return {
+          ...state,
+          images: [...state.images, action.payload]
+        }
+
+      case DELETE_IMAGE: 
+        return {
+          ...state,
+          images: state.images.filter((image: GalleryItem) => 
+            image.publicId !== action.payload)
+        }
+      
 
       default:
         return state;

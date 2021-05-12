@@ -76,7 +76,7 @@ const ContactForm: React.FC = () => {
           onChange={handleChange}
           className='textarea'
         />
-        <button>submit</button>
+        <button className='contact-button' >submit</button>
       </form>
     </div>
   )

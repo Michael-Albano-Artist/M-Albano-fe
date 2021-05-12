@@ -9,7 +9,9 @@ const AdminPage: React.FC = () => {
       <div className='admin-header-box'>
         <Header forAdmin/>
       </div>
-      <ImageList forAdmin />
+      <div className='admin-list-box'>
+        <ImageList forAdmin />
+      </div>
     </div>
   )
 }

@@ -31,6 +31,12 @@
   }
 }
 
+@media screen and (max-width: 1025px) {
+  .big-event-list {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 1025px) {
   .picture-list {
     display: flex;
@@ -38,5 +44,9 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+  }
+
+  .event-list {
+    display: none;
   }
 }
