@@ -62,3 +62,7 @@
 .textarea {
   height: 4rem;
 }
+
+.contact-button {
+  cursor: pointer;
+}

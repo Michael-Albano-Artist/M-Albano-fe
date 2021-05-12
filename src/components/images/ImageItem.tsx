@@ -13,10 +13,17 @@ type Props = {
   image: GalleryItem;
   index: number;
   forEvent: boolean;
+  eventBig: boolean;
   forAdmin: boolean;
 }
 
-const ImageItem: React.FC<Props> = ({ image, index, forEvent, forAdmin }) => {
+const ImageItem: React.FC<Props> = ({ 
+  image, 
+  index, 
+  forEvent,
+  eventBig,
+  forAdmin 
+}) => {
   const { publicId, metadata } = image;
   const cloudinaryName = process.env.REACT_APP_CLOUD_NAME;
   const dispatch = useDispatch();
@@ -40,7 +47,7 @@ const ImageItem: React.FC<Props> = ({ image, index, forEvent, forAdmin }) => {
             key={index}
             cloudName={cloudinaryName}
             publicId={publicId}
-            width='300'
+            width={eventBig ? 600 : 300}
             crop='scale' 
         />
       </Link>

@@ -1,9 +1,11 @@
+import { GalleryItem } from "../types";
+
 const api: string = process.env.REACT_APP_API_URL as string;
 const emailApi: string = process.env.REACT_APP_EMAIL_API_URL as string;
 
-export const uploadImage = async(imageString: string | ArrayBuffer | null, metaData: string): Promise<void> => {
+export const uploadImage = async(imageString: string | ArrayBuffer | null, metaData: string): Promise<GalleryItem | undefined> => {
   try {
-    await fetch(api, {
+   const res = await fetch(api, {
       method: 'POST',
       body: JSON.stringify({
         data: imageString,
@@ -11,7 +13,9 @@ export const uploadImage = async(imageString: string | ArrayBuffer | null, metaD
       }),
       headers: {'Content-type': 'application/json'}
     });
-    
+
+    const { public_id, metadata } =  await res.json();
+    return ({publicId: public_id, metadata})
 
   } catch (error) {
     console.log(error);
@@ -19,9 +23,9 @@ export const uploadImage = async(imageString: string | ArrayBuffer | null, metaD
 
 }
 
-export const uploadEvent = async(imageString: string | ArrayBuffer | null, metaData: string): Promise<void> => {
+export const uploadEvent = async(imageString: string | ArrayBuffer | null, metaData: string): Promise<GalleryItem | undefined> => {
   try {
-    await fetch(`${api}/events`, { 
+    const res = await fetch(`${api}/events`, { 
       method: 'POST',
       body: JSON.stringify({
         data: imageString,
@@ -29,6 +33,9 @@ export const uploadEvent = async(imageString: string | ArrayBuffer | null, metaD
       }),
       headers: {'Content-type': 'application/json'}
     });
+
+    const { public_id, metadata } =  await res.json();
+    return ({publicId: public_id, metadata})
     
 
   } catch (error) {
@@ -55,11 +62,13 @@ export const updateImage = async(publicId: string, metadata: string) => {
 
 export const deleteImage = async(publicId: string): Promise<any> => {
   try {
-    return await fetch(api, {
+    const res =  await fetch(api, {
       method: 'DELETE',
       body: JSON.stringify({publicId: publicId}),
       headers: {'Content-type': 'application/json'}
     });
+
+    return await res.json();
      
   } catch (error) {
       console.log(error);

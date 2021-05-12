@@ -31,11 +31,26 @@ const ImageList: React.FC<Props> = ({ forAdmin }) => {
           image={image} 
           index={index} 
           forEvent 
+          eventBig={false}
           forAdmin={forAdmin}
         />
       </li>
     ))
     : null
+
+    const bigEventItems = (filteredEvents) ? filteredEvents.map(
+      (image, index) => (
+        <li key={index}>
+          <ImageItem 
+            image={image} 
+            index={index} 
+            forEvent 
+            eventBig
+            forAdmin={forAdmin}
+          />
+        </li>
+      ))
+      : null
 
 
   const filteredImages = images.filter(
@@ -49,6 +64,7 @@ const ImageList: React.FC<Props> = ({ forAdmin }) => {
           image={image} 
           index={index} 
           forEvent={false}
+          eventBig={false}
           forAdmin={forAdmin}
         />
       </li>
@@ -64,9 +80,15 @@ const ImageList: React.FC<Props> = ({ forAdmin }) => {
       }
       {filteredEvents && 
       
+      <>
       <ul className='event-list' >
         {eventItems}
       </ul>
+
+      <ul className='big-event-list' >
+        {bigEventItems}
+      </ul>
+      </>
 
       }
       {images &&

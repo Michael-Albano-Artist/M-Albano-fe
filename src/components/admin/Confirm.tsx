@@ -1,4 +1,5 @@
 import React, { ReactEventHandler } from 'react'
+import './Confirm.css';
 
 interface Props {
   task: string;
@@ -12,15 +13,17 @@ const Confirm: React.FC<Props> = ({
   handleTask 
 }) => {
   return (
-    <div>
+    <div className='confirm-outer' >
       {task === 'delete' &&
         <h2>are you sure you want to delete this?</h2>
       }
       {task === 'update' &&
         <h2>are you sure you want to update this?</h2>
       }
-      <button onClick={handleTask}>yes</button>
-      <button onClick={handleStateChange}>no</button>
+      <nav>
+        <button onClick={handleTask}>yes</button>
+        <button onClick={handleStateChange}>no</button>
+      </nav>
     </div>
   )
 }

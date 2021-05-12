@@ -22,6 +22,7 @@
   top: 3.75rem;
   left: 1.75rem;
   color: white;
+  cursor: pointer;
 }
 
 .x-box-bio {
@@ -31,6 +32,8 @@
 .x-box-music {
   left: -7rem;
 }
+
+
 
 
 @keyframes grow {

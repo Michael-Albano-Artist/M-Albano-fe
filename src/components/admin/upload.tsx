@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { uploadImage, uploadEvent, updateImage } from '../../utils/api-utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateImage } from '../../utils/api-utils';
 import { selectImages } from '../../selectors/stateSelectors';
 import { findByPublicId, reArrangeDate } from '../../utils/utils';
 import './Upload.css';
 import { Link, useHistory } from 'react-router-dom';
 import Confirm from './Confirm';
+import { addEvent, addImage } from '../../actions/imageActions';
 
 type Props = {
   forEvent: boolean;
@@ -18,6 +19,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
   const imageForUpdate = findByPublicId(images, publicIdForUpdate);
   const metadata = imageForUpdate ? imageForUpdate.metadata : null;
   const history = useHistory();
+  const dispatch = useDispatch();
   const [previewSource, setPreviewSource] = useState<any>();
   const [title, setTitle] = useState<string>('');
   const [medium, setMedium] = useState<string>('');
@@ -43,7 +45,7 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
 
     }
     
-    const date = reArrangeDate(new Date().toLocaleDateString("en-US"));
+  const date = reArrangeDate(new Date().toLocaleDateString("en-US"));
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -75,14 +77,25 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    if(page === 'update' || page === 'update-event') 
-      setShowConfirm(true);
-    if(page === 'add-image') uploadImage(previewSource, newMetadata);
-    if(page === 'add-event') uploadEvent(previewSource, newMetadata);
+    if(page === 'add-image') dispatch(addImage(previewSource, newMetadata));
+    if(page === 'add-event') dispatch(addEvent(previewSource, newMetadata));
     setPreviewSource('');
+    setTitle('');
+    setMedium('');
+    setDimensions('');
+    setForSale('');
+    setPrice('');
+    setDay('');
+    history.push('/admin');
+  }
+
+  const handleUpdateSubmit = (e: React.ChangeEvent<any>) => {
+    e.preventDefault();
+    setShowConfirm(true);
   }
 
   const handleUpdate = (e: React.ChangeEvent<any>) => {
+    e.preventDefault();
     updateImage(publicIdForUpdate, newMetadata);
     history.push('/admin');
   }
@@ -104,10 +117,15 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
       }
 
       {(page === 'add-event') &&
-        <h1 className='form-headline' >add an image</h1>
+        <h1 className='form-headline' >add an event</h1>
       }
 
-      <form onSubmit={handleSubmit}  className='upload-form'>
+      <form 
+        onSubmit={(page === 'update' || page === 'update-event')
+          ? handleUpdateSubmit
+          : handleSubmit
+        }  
+        className='upload-form'>
 
         <label htmlFor="upload">choose a file</label>
         <input 
@@ -214,11 +232,13 @@ const Upload: React.FC<Props> = ({ forEvent, publicIdForUpdate, page }) => {
       }
 
       {showConfirm &&
-        <Confirm
-          task='update'
-          handleStateChange={handleUpdateState}
-          handleTask={handleUpdate}
-        />
+        <>
+          <Confirm
+            task='update'
+            handleStateChange={handleUpdateState}
+            handleTask={handleUpdate}
+          />
+        </>
       }
 
     </div>
