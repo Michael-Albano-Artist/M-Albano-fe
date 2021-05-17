@@ -9,12 +9,12 @@
 }
 
 .detail-link {
-  position: absolute;
+  position: fixed;
   top: 1em;
   left: 1em;
   color: white;
+  text-shadow: black 2px 2px;
   font-family: 'Roboto Mono';
   font-size: 1.5em;
   text-decoration: none;
-
 }
