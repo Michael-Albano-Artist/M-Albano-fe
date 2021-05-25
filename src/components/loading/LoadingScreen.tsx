@@ -1,5 +1,5 @@
 import React from 'react';
-import babyface  from '../../assets/babyface.png';
+import babyface  from '../../assets/babyface-smaller.png';
 import './LoadingScreen.css';
 
 const Loading: React.FC = () => {
